@@ -20,12 +20,16 @@ class _AddEventDialogState extends State<AddEventDialog> {
 
   var newEventNameFormController = TextEditingController();
   var newEventPlaceFormController = TextEditingController();
+  var newEventDescriptionFormController = TextEditingController();
+  var newEventKeywordsFormController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     newEventNameFormController.dispose();
     newEventPlaceFormController.dispose();
+    newEventDescriptionFormController.dispose();
+    newEventKeywordsFormController.dispose();
     super.dispose();
   }
 
@@ -47,8 +51,8 @@ class _AddEventDialogState extends State<AddEventDialog> {
           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
         content: SizedBox(
-          height: 300,
-          width: 200,
+          height: 600,
+          width: 400,
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -70,7 +74,8 @@ class _AddEventDialogState extends State<AddEventDialog> {
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Event Name',
-                        labelText: 'Event Name'),
+                        labelText: 'Event Name'
+                    ),
                   ),
                 ),
                 const Padding(
@@ -91,13 +96,57 @@ class _AddEventDialogState extends State<AddEventDialog> {
                     ),
                   ),
                 ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "Enter Event Description",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: newEventDescriptionFormController,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Event Description',
+                        labelText: 'Event Description'
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "Enter Event Keywords",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: newEventKeywordsFormController,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Event Keywords',
+                        labelText: 'Event Keywords'
+                    ),
+                  ),
+                ),
                 Container(
                   width: double.infinity,
                   height: 60,
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      widget.callback(Event(eventName: newEventNameFormController.text, eventPlace: newEventPlaceFormController.text));
+                      widget.callback(
+                          Event(
+                              eventName: newEventNameFormController.text, 
+                              eventPlace: newEventPlaceFormController.text, 
+                              joined: true,
+                              description: newEventDescriptionFormController.text,
+                              keywords: newEventKeywordsFormController.text.split(", "),
+                          )
+                      );
                       newEventNameFormController.text = "";
                       newEventPlaceFormController.text = "";
                       Navigator.pop(context);
