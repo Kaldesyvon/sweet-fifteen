@@ -19,7 +19,7 @@ class _MainPageState extends State<MainPage> {
   int index = 0;
   final pages = [
     const EventsPage(),
-    const Center(child: MapPage()),
+    const MapPage(),
     const Center(child: Text('Profile', style: TextStyle(fontSize: 15)))
   ];
 
