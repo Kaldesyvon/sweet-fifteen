@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sweetfifteen/events.dart';
+import 'package:sweetfifteen/event/events.dart';
 
 void main() {
   runApp(const MainPage());
