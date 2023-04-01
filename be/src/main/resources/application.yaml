@@ -1,0 +1,42 @@
+spring:
+  # DATASOURCE
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/mydb
+    username: foo
+    password: bar
+    driverClassName: org.postgresql.Driver
+  # JPA
+  jpa:
+    jpa:
+      database: POSTGRESQL
+      show-sql: true
+      hibernate:
+        ddl-auto: create-drop
+
+# SWAGGER OPENAPI 3
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    # custom-server-path: / # set this if your environment use ingress-path
+    disable-swagger-default-url: true
+    path: /swagger-ui.html
+    oauth:
+      endpoint-url: http://localhost:8080
+      client-id: whatever ;)
+      client-secret: whatever ;)
+
+# APP specific config
+application:
+  helper-api-enabled: true
+  scheduler:
+    every-day-cron: '-'
+    run-adv-cron: '-'
+    run-automatic-assignment-cron: '-'
+    run-notification-cron: '-'
+  version: @app.version@
+  build-time: @app.buildTime@
+  allowed-cors-origins:
+    - http://localhost:8080/
+

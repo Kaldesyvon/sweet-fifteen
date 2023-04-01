@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW VGBC_USER_TRANSLATED AS
+SELECT l.ID                                                                        AS ID_LANGUAGE,
+       l.ID || '-' || u.ID                                                         AS ID_VIEW,
+       NVL2(u.ID_LANGUAGE, l.ID || '-' || u.ID_LANGUAGE, NULL)                     AS ID_LANGUAGE_USER_VIEW,
+       NVL2(u.ID_NODE, l.ID || '-' || u.ID_NODE, NULL)                             AS ID_NODE_VIEW,
+       NVL2(u.ID_NODE_DEF, l.ID || '-' || u.ID_NODE_DEF, NULL)                     AS ID_NODE_DEF_VIEW,
+       NVL2(u.ID_SCOPE_DEF, l.ID || '-' || u.ID_SCOPE_DEF, NULL)                   AS ID_SCOPE_DEF_VIEW,
+       NVL2(u.ID_UNIT_SET, l.ID || '-' || u.ID_UNIT_SET, NULL)                     AS ID_UNIT_SET_VIEW,
+       NVL2(u.ID_ANALYSIS_PARAM_DEF, l.ID || '-' || u.ID_ANALYSIS_PARAM_DEF, NULL) AS ID_ANALYSIS_PARAM_DEF_VIEW,
+       u.ID,
+       u.ID_NODE,
+       u.LOGIN,
+       u.LOGIN_N,
+       u.NAME,
+       u.SURNAME,
+       u.FUNCTION,
+       u.ENABLED,
+       u.EMAIL,
+       u.PHONE,
+       u.CREATED_BY,
+       u.CREATED,
+       u.MODIFIED_BY,
+       u.MODIFIED,
+       u.ID_LANGUAGE                                                               AS ID_LANGUAGE_USER,
+       u.ID_NODE_DEF,
+       u.TIMEZONE,
+       u.SKIN,
+       u.OBJ_VERSION,
+       u.MAIL_NOTIFICATION,
+       u.ID_UNIT_SET,
+       u.ID_SCOPE_DEF,
+       u.ID_ANALYSIS_PARAM_DEF
+FROM GBC_USER u,
+     GBC_LANGUAGE l;
+
+-- always at the bottom commit
+COMMIT;

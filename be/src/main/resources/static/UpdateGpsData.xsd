@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="entityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NODE" />
+      <xs:enumeration value="METER" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="numberType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="stringType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20" />
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+
+              <xs:element name="entity" type="entityType" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Entity.
+                    NODE - updates GPS data for Node
+                    METER - updates GPS data for Meter.
+
+                    Required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+              <xs:element name="id" type="numberType" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Entity id.
+                    
+                    Required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              
+              <xs:element name="gpsLatitude" type="stringType" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    GPS Latitude - updates node GPS Latitude.
+
+                    Required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              
+              <xs:element name="gpsLongitude" type="stringType" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    GPS Longitude - updates node GPS Longitude.
+
+                    Required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

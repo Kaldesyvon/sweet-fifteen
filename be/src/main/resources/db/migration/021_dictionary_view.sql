@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW VGBC_DICTIONARY_TRANSLATED AS
+SELECT l.ID as ID_LANGUAGE_ORIGINAL,
+    l.ID || '-' || d.ID AS ID_VIEW,
+       l.ID || '-' || d.ID_LANGUAGE AS ID_LANGUAGE_VIEW,
+       d.*
+FROM GBC_DICTIONARY d,
+     GBC_LANGUAGE l;
+
+-- always at the bottom commit
+COMMIT;

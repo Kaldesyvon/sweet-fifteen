@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="changeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="I" />
+      <xs:enumeration value="U" />
+      <xs:enumeration value="D" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="remoteCodeType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+      <xs:whiteSpace value="replace" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="codeType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="numberType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="flowType">
+    <xs:restriction base="xs:string">
+		<xs:pattern value='input|output|1|-1|in|out'/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="dateTimeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]( [0-2][0-9]:[0-5][0-9]:[0-5][0-9]( (AM|PM))?)?" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="memoType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="250" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="numberOfMeasurementsType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="measurementsFrequencyType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+
+    <xs:complexType name="analysisType">
+      <xs:sequence>
+        <xs:element name="change" type="changeType" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Operation flag - allowed values: I,U,D
+              I - insert new analysis,
+              U - update existing analysis according to remoteCode and nodeCode
+              D - delete existing analysis according to remoteCode and nodeCode
+
+              Required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="remoteCode" type="remoteCodeType" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Remote code - a unique remote code (number or string) in remote IS, can be used to
+              update or delete analysis.
+
+              Required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="nodeCode" type="codeType" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Node code - unique plant code in GBCO2 system.
+
+              Required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="materialCode" type="codeType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Material code - unique material code in GBCO2 system, all allowed material codes
+              can be acquired using method getUnits of the QuantityWebServiceSoap12HttpPortClient web service.
+
+              Required if (change = I or change = U).
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="componentCode" type="codeType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Component code - unique component code in GBCO2 system.
+
+              Required if (change = I or change = U).
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="unitCode" type="codeType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Unit code - unique unit code in GBCO2 system.
+              Examples: GJ/tn, MMBTU/t, tn/tn, t/t, %, ppm and others.
+
+              Required if (change = I or change = U).
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="factorA" type="numberType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Factor A - content in material.
+
+              Required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="factorB" type="numberType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Factor B - factor for preparing of material.
+
+              Not required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="factorC" type="numberType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Factor C
+
+              Not required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="mdlA" type="numberType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              MDL A
+
+              Not required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="uncertainty" type="numberType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Uncertainty - uncertainty of analysis.
+
+              Not required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="validFrom" type="dateTimeType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Valid from - analysis is valid from this date and time.
+
+              Required if (change = I or change = U).
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="validTo" type="dateTimeType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Valid to - analysis is valid to this date and time.
+
+              Not required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="editable" type="xs:boolean" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Editable - if false, analysis will not be editable in IS.
+
+              Not required. Default value is false.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="memo" type="memoType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Memo - any memo or description of analysis, max. 250 characters.
+
+              Not required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="numberOfMeasurements" type="numberOfMeasurementsType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Number Of Measurements - if set then the minimum is 1.
+
+              Not required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="measurementsFrequency" type="measurementsFrequencyType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Measurements Frequency - specify string label, e.g. Hourly, Daily, Weekly...
+
+              Not required.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element name="analysis" type="analysisType" minOccurs="0" maxOccurs="unbounded" />
+
+        <xs:element name="quantity" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="change" type="changeType" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Operation flag - allowed values: I,U,D
+                    I - insert new quantity,
+                    U - update existing quantity according to remoteCode and nodeCode
+                    D - delete existing quantity according to remoteCode and nodeCode
+
+                    Required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="remoteCode"
+                type="remoteCodeType" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Remote code - a unique remote code (number or string) in
+                    remote IS, can be used to update or delete quantity.
+
+                    Required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="nodeCode" type="codeType" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Node code - unique plant code in GBCO2 system.
+
+                    Required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="materialCode" type="codeType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Material code - unique material code in GBCO2 system, all
+                    allowed material codes can be acquired using method getUnits
+                    of the QuantityWebServiceSoap12HttpPortClient web service.
+
+                    Required if (change = I or change = U).
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="measurePointCode" type="codeType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Measure point code - unique measure point code in GBCO2 system.
+
+                    Not required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="meterId" type="numberType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Meter id - unique meter id in GBCO2 system.
+
+                    Not required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="unitCode" type="codeType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Unit code - unique unit code in GBCO2 system, all allowed unit codes can be acquired using
+                    method getMaterials of the QuantityWebServiceSoap12HttpPortClient web service.
+
+                    Required if (change = I or change = U).
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="quantity" type="numberType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Quantity - decimal value of quantity in units specified in element unitCode.
+
+                    Required if (change = I or change = U).
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="uncertainty" type="numberType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Uncertainty - uncertainty of analysis.
+
+                    Not required.
+                  </xs:documentation>
+               </xs:annotation>
+              </xs:element>
+              <xs:element name="flow" type="flowType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Flow -  defines whether quantity is on input or output.
+
+                    Required if (change = I or change = U).
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="dateFrom" type="dateTimeType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Date from - start date of quantity consumption.
+
+                    Required if (change = I or change = U).
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="dateTo" type="dateTimeType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Date to - end date of quantity consumption.
+
+                    Not required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="autoAssignAnalyses" type="xs:boolean" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Auto assign analyses - if true, system automatically updates analyses for this quantity.
+
+                    Not required. Default value is true.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="editable" type="xs:boolean" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Editable - if false, quantity will not be editable in IS.
+
+                    Not required. Default value is true.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="aaa" type="xs:boolean" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    AAA - auto analysis assign - if false, auto analysis assigment will not be available for this quantity.
+
+                    Not required. Default value is true.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="memo" type="memoType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Memo - any memo or description of quantity, max. 250 characters.
+
+                    Not required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="analyses" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Analyses - association between quantity and analysis.
+
+                    Not required.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element
+                      name="detachAnalysis" minOccurs="0" maxOccurs="unbounded">
+                      <xs:annotation>
+                        <xs:documentation
+                          xml:lang="en">
+                          Detach analyses - cancels association between quantity and analysis.
+
+                          Not required.
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element
+                            name="remoteCode" type="remoteCodeType" minOccurs="1"
+                            maxOccurs="1">
+                            <xs:annotation>
+                              <xs:documentation
+                                xml:lang="en">
+                                Remote code - a unique remote code of analysis
+
+                                Required.
+                              </xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element
+                      name="assignAnalysis" minOccurs="0" maxOccurs="unbounded">
+                      <xs:annotation>
+                        <xs:documentation xml:lang="en">
+                          Assign analyses - creates association between quantity and analysis.
+
+                          Not required.
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="remoteCode" type="remoteCodeType" minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                              <xs:documentation xml:lang="en">
+                                Remote code - a unique remote code of analysis.
+
+                                Required.
+                              </xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element
+                      name="setAnalyses" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                      <xs:annotation>
+                        <xs:documentation xml:lang="en">
+                          Assign analyses - sets analyses of this quantity exactly as in this tag.
+
+                          Not required.
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="remoteCode" type="remoteCodeType" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                              <xs:documentation xml:lang="en">
+                                Remote code - a unique remote code of analysis.
+
+                                Required.
+                              </xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="analysis" type="analysisType" minOccurs="0" maxOccurs="unbounded" />
+
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="numberOfMeasurements" type="numberOfMeasurementsType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">
+                    Number Of Measurements - if set then the minimum is 1.
+      
+                    Not required.
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

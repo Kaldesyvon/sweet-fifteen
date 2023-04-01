@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+  <appender class="ch.qos.logback.core.ConsoleAppender"
+    name="Console">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>
+        %clr(%d{yyyy-MM-dd HH:mm:ss.SSS, Europe/Bratislava}){faint} trace-id=%X{gbco2-trace-id} %clr(${LOG_LEVEL_PATTERN:-%5p}){blue} %clr(---){faint} %clr(%16.16t){faint} %clr(%-40.40logger{39}){magenta} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}
+      </Pattern>
+    </layout>
+  </appender>
+
+  <root level="info">
+    <appender-ref ref="Console"/>
+  </root>
+
+
+</configuration>
