@@ -16,9 +16,9 @@ class EventsPage extends StatefulWidget {
 
 class _EventsPageState extends State<EventsPage> {
   final events = [
-    const Event(eventName: "Skate meet", eventPlace: "skatepark"),
-    const Event(eventName: "Upratovanie", eventPlace: "namestie"),
-    const Event(eventName: "Car meet", eventPlace: "KFA"),
+    Event(eventName: "TUKE", eventPlace: "TUKE", joined: false, description: "", keywords: const ["IT", "programming"]),
+    Event(eventName: "Upratovanie Galerie", eventPlace: "OC Galeria", joined: false, description: "", keywords: const ["volunteer", "cleaning"]),
+    Event(eventName: "Bike meet", eventPlace: "Dom sv. alzbety", joined: false, description: "", keywords: const ["biking", "outdoor", "sport"]),
   ];
 
   @override
