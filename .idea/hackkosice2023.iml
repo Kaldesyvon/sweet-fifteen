@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/sweetfifteen/ios/.symlinks/plugins/google_maps_flutter_ios/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sweetfifteen/ios/.symlinks/plugins/google_maps_flutter_ios/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sweetfifteen/ios/.symlinks/plugins/google_maps_flutter_ios/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sweetfifteen/ios/.symlinks/plugins/google_maps_flutter_ios/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sweetfifteen/ios/.symlinks/plugins/google_maps_flutter_ios/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sweetfifteen/ios/.symlinks/plugins/google_maps_flutter_ios/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/sweetfifteen/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/sweetfifteen/build" />
       <excludeFolder url="file://$MODULE_DIR$/sweetfifteen/.pub" />

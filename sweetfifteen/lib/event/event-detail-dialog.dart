@@ -86,7 +86,7 @@ class _EventDetailDialogState extends State<EventDetailDialog> {
                   child: ElevatedButton(
                     onPressed: () {
                       // TODO: Navigate to map
-                      // MaterialPageRoute(builder: (context) => Map())
+                      // MaterialPageRoute(builder: (context) => Map)
                       Navigator.pop(context);
                       setState(() {});
                     },
