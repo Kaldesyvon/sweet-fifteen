@@ -1,2 +1,0 @@
-Application version ${application.version}
-Powered by Spring Boot ${spring-boot.version}
