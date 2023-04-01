@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+// import 'event/event.dart';
+
 class MapPage extends StatefulWidget {
-  const MapPage({super.key});
+  // const MapPage({super.key});
+
+  const MapPage({Key? key, events}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -12,44 +16,37 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   int index = 1;
-
   late GoogleMapController mapController;
 
-  final pages = [
-    const Center(child: Text('Map', style: TextStyle(fontSize: 15))),
-    const Center(child: Text('Events', style: TextStyle(fontSize: 15))),
-    const Center(child: Text('Profile', style: TextStyle(fontSize: 15)))
-  ];
-
-  final CameraPosition _initialCameraPosition = const CameraPosition(
+  final _initialCameraPosition = const CameraPosition(
     target: LatLng(48.716385, 21.261074),
-    zoom: 11.0,
+    zoom: 15.0,
   );
 
   void _onMapCreated(GoogleMapController controller) {
-    setState(() {
-      mapController = controller;
-    });
+    mapController = controller;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Map')),
       body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: _initialCameraPosition,
-        // onCameraMove: (CameraPosition position) {
-        //   setState(() {
-        //     _initialCameraPosition = position;
-        //   });
-        // },
-        markers: <Marker>{
-          const Marker(
-              markerId: MarkerId('first'),
-              position: LatLng(48.716385, 21.261074))
-        },
-      ),
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: _initialCameraPosition,
+          markers: <Marker>{
+            const Marker(
+                markerId: MarkerId('first'),
+                position: LatLng(48.716385, 21.261074))
+          },
+          circles: {
+            Circle(
+                circleId: const CircleId('radius'),
+                center: _initialCameraPosition.target,
+                radius: 600,
+                strokeWidth: 3,
+                strokeColor: Colors.blue,
+                fillColor: const Color.fromARGB(130, 33, 150, 243))
+          }),
     );
   }
 }
