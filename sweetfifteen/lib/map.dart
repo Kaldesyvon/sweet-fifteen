@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sweetfifteen/event/event.dart';
 
 // import 'event/event.dart';
 
@@ -27,17 +28,34 @@ class _MapPageState extends State<MapPage> {
     mapController = controller;
   }
 
+  var events = [
+    {'name': 'lol1', 'latitude': 48.73535, 'longitude': 21.3},
+    {'name': 'lol2', 'latitude': 48.72535, 'longitude': 21.35},
+    {'name': 'lol3', 'latitude': 48.71535, 'longitude': 21.21},
+  ];
+
+  Set<Marker> _createMarkers() {
+    Set<Marker> markers = {};
+    for (var event in events) {
+      markers.add(
+        Marker(
+          markerId: MarkerId(event['name']! as String),
+          position: LatLng(
+              event['latitude']! as double, event['longitude']! as double),
+          infoWindow: InfoWindow(title: event['name']! as String),
+        ),
+      );
+    }
+    return markers;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
           onMapCreated: _onMapCreated,
           initialCameraPosition: _initialCameraPosition,
-          markers: <Marker>{
-            const Marker(
-                markerId: MarkerId('first'),
-                position: LatLng(48.716385, 21.261074))
-          },
+          markers: _createMarkers(),
           circles: {
             Circle(
                 circleId: const CircleId('radius'),
