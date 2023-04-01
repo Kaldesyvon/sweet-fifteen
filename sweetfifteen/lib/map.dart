@@ -11,7 +11,8 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  int index = 0;
+  int index = 1;
+
   late GoogleMapController mapController;
 
   final pages = [
@@ -20,28 +21,29 @@ class _MapPageState extends State<MapPage> {
     const Center(child: Text('Profile', style: TextStyle(fontSize: 15)))
   ];
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-    _initialCameraPosition = controller.cameraPosition;
-    ;
-  }
-
-  CameraPosition _initialCameraPosition = const CameraPosition(
+  final CameraPosition _initialCameraPosition = const CameraPosition(
     target: LatLng(48.716385, 21.261074),
     zoom: 11.0,
   );
 
-  void _onCameraMove(CameraPosition position) {
-    _initialCameraPosition = position;
+  void _onMapCreated(GoogleMapController controller) {
+    setState(() {
+      mapController = controller;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Leaflet Maps')),
+      appBar: AppBar(title: const Text('Map')),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: _initialCameraPosition,
+        // onCameraMove: (CameraPosition position) {
+        //   setState(() {
+        //     _initialCameraPosition = position;
+        //   });
+        // },
         markers: <Marker>{
           const Marker(
               markerId: MarkerId('first'),
