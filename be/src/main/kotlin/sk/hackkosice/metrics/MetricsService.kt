@@ -42,6 +42,6 @@ class MetricsService(private val registry: MeterRegistry) {
     }
 
     companion object {
-        private const val METRICS_NAME_PREFIX = "sk.esten.uss.gbco2."
+        private const val METRICS_NAME_PREFIX = "sk.hackkosice."
     }
 }

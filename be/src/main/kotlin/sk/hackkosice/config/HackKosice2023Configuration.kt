@@ -17,7 +17,7 @@ import sk.esten.uss.gbco2.config.tracing.TraceIdCleanerInterceptor
 import sk.esten.uss.gbco2.utils.logger
 
 @Configuration
-class Gbco2Configuration : WebMvcConfigurer {
+class HackKosice2023Configuration : WebMvcConfigurer {
 
     @Bean
     fun httpClient(): HttpClient {

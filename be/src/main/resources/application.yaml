@@ -30,11 +30,6 @@ springdoc:
 # APP specific config
 application:
   helper-api-enabled: true
-  scheduler:
-    every-day-cron: '-'
-    run-adv-cron: '-'
-    run-automatic-assignment-cron: '-'
-    run-notification-cron: '-'
   version: @app.version@
   build-time: @app.buildTime@
   allowed-cors-origins:

@@ -41,6 +41,6 @@ class TraceIdFilter : Filter {
     }
 
     companion object {
-        const val TRACE_ID_KEY = "gbco2-trace-id"
+        const val TRACE_ID_KEY = "hackkosice-trace-id"
     }
 }
