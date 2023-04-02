@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sweetfifteen/event/events.dart';
 import 'package:sweetfifteen/map.dart';
+import 'package:sweetfifteen/profile/profiles.dart';
 
 void main() {
   runApp(const MainPage());
@@ -20,7 +21,7 @@ class _MainPageState extends State<MainPage> {
   final pages = [
     const EventsPage(),
     const MapPage(),
-    const Center(child: Text('Profile', style: TextStyle(fontSize: 15)))
+    const ProfilesPage()
   ];
 
   @override
