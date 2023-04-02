@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sweetfifteen/map.dart';
 
 import 'event.dart';
 
@@ -49,9 +51,7 @@ class _EventDetailDialogState extends State<EventDetailDialog> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.event.eventPlace
-                  ),
+                  child: Text(widget.event.eventPlace),
                 ),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -62,9 +62,7 @@ class _EventDetailDialogState extends State<EventDetailDialog> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.event.description
-                  ),
+                  child: Text(widget.event.description),
                 ),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -75,9 +73,7 @@ class _EventDetailDialogState extends State<EventDetailDialog> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.event.keywords.join(", ")
-                  ),
+                  child: Text(widget.event.keywords.join(", ")),
                 ),
                 Container(
                   width: double.infinity,
@@ -89,6 +85,10 @@ class _EventDetailDialogState extends State<EventDetailDialog> {
                       // MaterialPageRoute(builder: (context) => Map)
                       Navigator.pop(context);
                       setState(() {});
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MapPage(
+                              initialLatLng: LatLng(
+                                  widget.event.lat, widget.event.long))));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(0, 148, 128, 1.0),
@@ -108,18 +108,18 @@ class _EventDetailDialogState extends State<EventDetailDialog> {
                       setState(() {});
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: (() => (widget.event.joined) ? const Color.fromRGBO(200, 100, 0, 1.0) : const Color.fromRGBO(0, 148, 128, 1.0))()
-                      ,
+                      backgroundColor: (() => (widget.event.joined)
+                          ? const Color.fromRGBO(200, 100, 0, 1.0)
+                          : const Color.fromRGBO(0, 148, 128, 1.0))(),
                     ),
-                    child: Text(
-                      (() => (widget.event.joined) ? "Leave Event" : "Join Event")()
-                    ),
+                    child: Text((() => (widget.event.joined)
+                        ? "Leave Event"
+                        : "Join Event")()),
                   ),
                 ),
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 }
