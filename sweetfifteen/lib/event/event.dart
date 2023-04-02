@@ -16,11 +16,11 @@ getLongFromEventPlace(String eventPlace) {
 }
 
 getLatFromEventPlace(String eventPlace) {
-  if(eventPlace == "Kunsthalle") {
+  if (eventPlace == "Kunsthalle") {
     return 48.725452580297116;
-  } else if(eventPlace == "Dom sv. alzbety") {
+  } else if (eventPlace == "Dom sv. alzbety") {
     return 48.72066798420253;
-  } else if(eventPlace == "OC Galeria") {
+  } else if (eventPlace == "OC Galeria") {
     return 48.71574103673905;
   } else {
     return 48.73110340057184; // TUKE
@@ -32,13 +32,19 @@ class Event extends StatefulWidget {
   final String eventPlace;
   final List<String> keywords;
   final String description;
-  double? lat;
-  double? long;
+  double lat;
+  double long;
   late bool joined;
 
   Event({
-    super.key, required this.eventName, required this.eventPlace, required this.joined, required this.description, required this.keywords,
-  }) : lat = getLatFromEventPlace(eventPlace), long = getLongFromEventPlace(eventPlace);
+    super.key,
+    required this.eventName,
+    required this.eventPlace,
+    required this.joined,
+    required this.description,
+    required this.keywords,
+  })  : lat = getLatFromEventPlace(eventPlace),
+        long = getLongFromEventPlace(eventPlace);
 
   @override
   State<StatefulWidget> createState() {
@@ -53,34 +59,36 @@ class _EventState extends State<Event> {
   Widget build(BuildContext context) {
     return ListTile(
         shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Colors.black, width: 1),
-          borderRadius: BorderRadius.circular(20)
-        ),
+            side: const BorderSide(color: Colors.black, width: 1),
+            borderRadius: BorderRadius.circular(20)),
         onTap: () {
-          showDialog(context: context, builder: (context) {
-            return EventDetailDialog(event: widget);
-          });
+          showDialog(
+              context: context,
+              builder: (context) {
+                return EventDetailDialog(event: widget);
+              });
         },
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
-              border: Border(
-              right: BorderSide(width: 1.0, color: Colors.black))),
+              border:
+                  Border(right: BorderSide(width: 1.0, color: Colors.black))),
           child: const Icon(Icons.autorenew, color: Colors.black),
         ),
         title: Text(
           widget.eventName,
-          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-
         subtitle: Row(
           children: <Widget>[
             const Icon(Icons.place, color: Colors.black),
             Text(widget.eventPlace, style: const TextStyle(color: Colors.black))
           ],
         ),
-        trailing:
-        const Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0));
+        trailing: const Icon(Icons.keyboard_arrow_right,
+            color: Colors.black, size: 30.0));
   }
 }

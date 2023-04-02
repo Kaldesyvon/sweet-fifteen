@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sweetfifteen/event/event.dart';
-
-// import 'event/event.dart';
+import 'package:sweetfifteen/event/eventData.dart';
+import 'package:sweetfifteen/event/events.dart';
+import 'package:sweetfifteen/main.dart';
 
 class MapPage extends StatefulWidget {
-  // const MapPage({super.key});
-
-  const MapPage({Key? key, events}) : super(key: key);
+  const MapPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -28,24 +26,21 @@ class _MapPageState extends State<MapPage> {
     mapController = controller;
   }
 
-  var events = [
-    {'name': 'lol1', 'latitude': 48.73535, 'longitude': 21.3},
-    {'name': 'lol2', 'latitude': 48.72535, 'longitude': 21.35},
-    {'name': 'lol3', 'latitude': 48.71535, 'longitude': 21.21},
-  ];
-
   Set<Marker> _createMarkers() {
     Set<Marker> markers = {};
-    for (var event in events) {
+    for (var event in EventData.events) {
       markers.add(
         Marker(
-          markerId: MarkerId(event['name']! as String),
-          position: LatLng(
-              event['latitude']! as double, event['longitude']! as double),
-          infoWindow: InfoWindow(title: event['name']! as String),
+          markerId: MarkerId(event.eventName),
+          position: LatLng(event.lat, event.long),
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const MainPage()));
+          },
         ),
       );
     }
+
     return markers;
   }
 
