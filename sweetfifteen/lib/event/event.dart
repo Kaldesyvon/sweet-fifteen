@@ -32,12 +32,13 @@ class Event extends StatefulWidget {
   final String eventPlace;
   final List<String> keywords;
   final String description;
+  final DateTime eventDate;
   double? lat;
   double? long;
   late bool joined;
 
   Event({
-    super.key, required this.eventName, required this.eventPlace, required this.joined, required this.description, required this.keywords,
+    super.key, required this.eventName, required this.eventPlace, required this.joined, required this.description, required this.keywords, required this.eventDate,
   }) : lat = getLatFromEventPlace(eventPlace), long = getLongFromEventPlace(eventPlace);
 
   @override
@@ -62,12 +63,24 @@ class _EventState extends State<Event> {
           });
         },
         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        leading: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: const BoxDecoration(
-              border: Border(
-              right: BorderSide(width: 1.0, color: Colors.black))),
-          child: const Icon(Icons.autorenew, color: Colors.black),
+        leading: GestureDetector(
+          onTap: () {
+            widget.joined = !widget.joined;
+            setState(() {});
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+                border: Border(
+                right: BorderSide(width: 1.0, color: Colors.black))),
+            child: (() {
+              if(widget.joined) {
+                return const Icon(Icons.star, color: Colors.black);
+              }
+              return const Icon(Icons.star_border, color: Colors.black);
+            })()
+          )
+
         ),
         title: Text(
           widget.eventName,

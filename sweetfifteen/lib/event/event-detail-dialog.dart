@@ -56,6 +56,19 @@ class _EventDetailDialogState extends State<EventDetailDialog> {
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
+                    "Event Date",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      "${widget.event.eventDate.day.toString()}-${widget.event.eventDate.month.toString()}-${widget.event.eventDate.year.toString()} ${widget.event.eventDate.hour}:00"
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
                     "Event Description",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),

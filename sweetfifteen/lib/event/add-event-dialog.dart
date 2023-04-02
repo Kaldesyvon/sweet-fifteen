@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'event.dart';
@@ -17,6 +18,7 @@ class AddEventDialog extends StatefulWidget {
 class _AddEventDialogState extends State<AddEventDialog> {
   var newEventPlace;
   var newEventName;
+  var newEventDate;
 
   var newEventNameFormController = TextEditingController();
   var newEventPlaceFormController = TextEditingController();
@@ -99,6 +101,24 @@ class _AddEventDialogState extends State<AddEventDialog> {
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
+                    "Enter Event Date",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 200,
+                  child: CupertinoDatePicker(
+                    mode: CupertinoDatePickerMode.dateAndTime,
+                    initialDateTime: DateTime(1969, 1, 1),
+                    onDateTimeChanged: (DateTime newDateTime) {
+                      newEventDate = newDateTime;
+                      setState(() {});
+                    },
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
                     "Enter Event Description",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
@@ -145,6 +165,7 @@ class _AddEventDialogState extends State<AddEventDialog> {
                               joined: true,
                               description: newEventDescriptionFormController.text,
                               keywords: newEventKeywordsFormController.text.split(", "),
+                              eventDate: newEventDate,
                           )
                       );
                       newEventNameFormController.text = "";
